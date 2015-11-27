@@ -1,0 +1,11 @@
+# Visual studio specific
+.vs
+project.lock.json
+*.user
+
+# Node
+node_modules
+
+# Front
+lib
+artifacts
