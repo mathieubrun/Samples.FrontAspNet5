@@ -13,7 +13,7 @@
         });
 
         it('must set title on scope', function () {
-            expect(ctrl.title).toBe('Hello world');
+            expect(ctrl.title).toBe('Hello from HomeController');
         });
     });
 });
