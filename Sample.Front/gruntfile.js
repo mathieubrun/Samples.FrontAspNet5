@@ -12,6 +12,15 @@ module.exports = function (grunt) {
         },
 
         watch: {
+            // adding or removing a js file trigger injections
+            injections: {
+                files: ['<%= paths.app %>/app/**/*.js'],
+                tasks: ['wiredep', 'injector'],
+                options: {
+                    event: ['added', 'deleted'],
+                },
+            },
+            
             // changing an application file triggers automated tests
             tests: {
                 files: ['<%= paths.app %>/app/**/*.js'],
