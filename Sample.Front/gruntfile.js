@@ -1,11 +1,22 @@
-﻿module.exports = function (grunt) {
+﻿/// <binding ProjectOpened='watch' />
+module.exports = function (grunt) {
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-injector');
+    grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-wiredep');
 
     grunt.initConfig({
         paths: {
             app: 'wwwroot',
             dist: 'dist'
+        },
+
+        watch: {
+            // changing an application file triggers automated tests
+            tests: {
+                files: ['<%= paths.app %>/app/**/*.js'],
+                tasks: ['karma:unit']
+            }
         },
 
         injector: {
@@ -33,6 +44,33 @@
                         '<%= paths.app %>/styles/**/*.css'
                     ]
                 }
+            },
+
+            testScripts: {
+                options: {
+                    transform: function (filePath) {
+                        return "'" + filePath + "',";
+                    },
+                    starttag: '// injector:js',
+                    endtag: '// endinjector'
+                },
+                files: {
+                    'test/karma.conf.js': [
+                        '<%= paths.app %>/app/**/*.module.js',
+                        '<%= paths.app %>/app/**/*.js',
+                        '<%= paths.app %>/app/**/*.spec.js'
+                    ]
+                }
+            },
+
+            testRunnerScripts: {
+                files: {
+                    'test/runner/index.html': [
+                        '<%= paths.app %>/app/**/*.module.js',
+                        '<%= paths.app %>/app/**/*.js',
+                        '<%= paths.app %>/app/**/*.spec.js'
+                    ]
+                }
             }
         },
 
@@ -41,7 +79,28 @@
                 src: [
                     '<%= paths.app %>/index.html'
                 ]
+            },
+
+            tests: {
+                options: {
+                    // this will allow angular-mocks to be injected
+                    devDependencies: true
+                },
+                src: [
+                  'test/karma.conf.js', 'test/runner/index.html'
+                ]
             }
+        },
+        
+        karma: {
+            allBrowsers: {
+                configFile: 'test/karma.conf.js',
+                browsers: ['Chrome', 'IE']
+            },
+            unit: {
+                configFile: 'test/karma.conf.js',
+                browsers: ['PhantomJS']
+            },
         }
     });
 };
