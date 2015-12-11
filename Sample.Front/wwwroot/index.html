@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -17,10 +17,12 @@
     <script src="lib/ui-router/release/angular-ui-router.js"></script>
     <!-- endbower -->
     <!-- injector:js -->
-    <script src="app/app.js"></script>
+    <script src="app/app.module.js"></script>
+    <script src="app/home/home.module.js"></script>
+    <script src="app/home/home.controller.js"></script>
     <!-- endinjector -->
 
-    <p>Hello</p>
+    <p>Static hello</p>
     <div ng-app="app">
         <ui-view />
     </div>
