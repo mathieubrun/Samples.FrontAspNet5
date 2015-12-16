@@ -17,6 +17,10 @@
     "karma-ie-launcher": "0.2.0",
     "karma-jasmine": "0.3.6",
     "karma-phantomjs-launcher": "0.2.1",
-    "phantomjs": "1.9.18"
+    "phantomjs": "1.9.18",
+
+    "grunt-protractor-runner": "2.1.2",
+    "protractor": "2.5.1",
+    "grunt-contrib-connect": "0.11.2"
   }
 }
