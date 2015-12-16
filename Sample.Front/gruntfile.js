@@ -5,6 +5,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-wiredep');
 
+    grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-protractor-runner');
+
     grunt.initConfig({
         paths: {
             app: 'wwwroot',
@@ -110,6 +113,29 @@ module.exports = function (grunt) {
                 configFile: 'test/karma.conf.js',
                 browsers: ['PhantomJS']
             },
+        },
+
+        connect: {
+            server: {
+                options: {
+                    port: 9001,
+                    base: 'wwwroot'
+                }
+            }
+        },
+        
+        protractor: {
+            run: {
+                options: {
+                    configFile: "test/protractor.conf.js",
+                    webdriverManagerUpdate: true
+                }
+            }
         }
     });
+
+    grunt.registerTask('test:e2e', [
+        'connect:server',
+        'protractor:run'
+    ]);
 };
